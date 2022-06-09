@@ -1460,13 +1460,12 @@ th div {
 }
 
 td img {
-    width: 100%;
+    width: 100px;
 }
 td > span:hover{
     color: #f44336;
     cursor: pointer;
 }
-
 /* fade down */
 @keyframes fadeLeft {
     from {
