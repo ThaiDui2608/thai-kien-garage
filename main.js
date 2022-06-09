@@ -144,9 +144,72 @@ const clickAddToCart = document.querySelectorAll("#click-to-count")
 const countCart = document.querySelector(".cart-num")
 let currentCount = 0;
 
-function count(){
-  currentCount += 1;
-  countCart.innerHTML = currentCount
+function count(x) {
+  
+  let catalogue = x.parentElement.parentElement.children;
+  let img = catalogue[0].children[0].src;
+  let nameItem = catalogue[1].children[0].innerText;
+  let priceItem = catalogue[1].children[1].children[0].children[0].innerText;
+  let item = new Array(img, nameItem, priceItem);
+  
+  cart.push(item);
+  showMyCart()
+  countItem()
+}
+function countItem(){
+  countCart.innerHTML = cart.length;
+
+}
+function showMyCart() {
+  let cartItems = "";
+  let total = 0;
+  for (let i = 0; i < cart.length; i++) {
+    let parsePrice = (cart[i][2]).replace(/[^0-9]/g, "")
+    total += parseInt(parsePrice);
+    cartItems += '<tr>' +
+      '<td>' + (i + 1) + '</td>' +
+      '<td><img src="' + cart[i][0] + '" alt=""></td>' +
+      '<td>' + cart[i][1] + '</td>' +
+      '<td>' + cart[i][2] + '<sup>đ</sup></td>' +
+      '<td>'+
+      '<span onclick="deleteItem(this)">X</span>'+
+      '</td>' +
+
+      '</tr>';
+  }
+  let allTotal = total.toLocaleString("de-DE")
+  cartItems += '<tr>' +
+    '<th colspan="3">Tổng đơn hàng</th>' +
+    '<th colspan = "2">' +
+    '   <div>' + allTotal + '<sup>đ</sup></div>' +
+    '</th>' +
+
+    '</tr>';
+  document.getElementById("mycart").innerHTML = cartItems;
 }
 
+function deleteItem(x){
+    let tr = x.parentElement.parentElement;
+    let nameItem = tr.children[2].innerText;
+    tr.remove();
+    
+    for (let i = 0; i < cart.length; i++){
+      if (cart[i][1] == nameItem){
+        cart.splice(i, 1)
+      }
+    }
+    console.log(cart);
+    showMyCart()
+    countItem()
+}
+
+function showCart() {
+  if (document.getElementById("cart-container").style.display == "none") {
+    document.getElementById("cart-container").style.display = "block";
+    showMyCart()
+  } else {
+    document.getElementById("cart-container").style.display = "none"
+  }
+
+}
 
