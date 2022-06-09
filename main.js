@@ -144,6 +144,14 @@ const clickAddToCart = document.querySelectorAll("#click-to-count")
 const countCart = document.querySelector(".cart-num")
 let currentCount = 0;
 
+// function count(){
+//   currentCount += 1;
+//   countCart.innerHTML = currentCount
+// }
+
+let cart = new Array();
+
+
 function count(x) {
   
   let catalogue = x.parentElement.parentElement.children;
@@ -212,4 +220,3 @@ function showCart() {
   }
 
 }
-
